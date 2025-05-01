@@ -10,9 +10,11 @@ import { ProductsListNgxsComponent } from '../products-list/products-list.compon
   selector: 'app-products-page-ngxs',
   imports: [CommonModule, ProductsListNgxsComponent],
   template: `
-    <div class="card error-card" *ngIf="errorMessage()">
+     @if (errorMessage()) {
+    <div class="alert alert-danger">
       Error: {{ errorMessage() }}
     </div>
+  }
     <div *ngIf="!loading(); else loadingElement">
       <div class="container">
         <app-products-list
@@ -23,7 +25,13 @@ import { ProductsListNgxsComponent } from '../products-list/products-list.compon
         ></app-products-list>
       </div>
     </div>
-    <ng-template #loadingElement>Loading...</ng-template>
+    <ng-template #loadingElement>
+      <div class="text-center p-3">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </ng-template>
   `,
 })
 export class ProductsPageNgxsComponent implements OnInit {
@@ -33,8 +41,8 @@ export class ProductsPageNgxsComponent implements OnInit {
   products = this.store.selectSignal(ProductsState.getProducts);
   showProductCode = this.store.selectSignal(ProductsState.getShowProductCode);
   loading = this.store.selectSignal(ProductsState.getLoading);
-  errorMessage =this.store.selectSignal(ProductsState.getErrorMessage);
-  total = this.store.selectSignal(ProductsState.getProductsLength);
+  errorMessage = this.store.selectSignal(ProductsState.getErrorMessage);
+  total = this.store.selectSignal(ProductsState.getTotalPrice);
 
   ngOnInit() {
     // not required as we are using ngxsOnInit in the state

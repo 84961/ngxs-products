@@ -13,50 +13,50 @@ import { RouterLink } from '@angular/router';
   selector: 'app-product-edit',
   imports: [ReactiveFormsModule, RouterLink],
   template: `
-     <div class="card">
-      <h2 class="title">Product Detail</h2>
+    <div class="card">
+    <div class="card-header">
+      <h2 class="mb-0">Product Detail</h2>
+    </div>
+    <div class="card-body">
       <form [formGroup]="productForm" (submit)="onSubmit()">
-        <div class="form-field">
-          <div>
-            <label for="name">Name:</label>
-            <input type="text" name="name" id="name" formControlName="name" />
-          </div>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name:</label>
+          <input type="text" class="form-control" id="name" formControlName="name" />
           @if (productForm.get('name')?.touched && productForm.get('name')?.hasError('required')) {
-            <span class="invalid">Name is required.</span>
+            <div class="invalid-feedback d-block">Name is required.</div>
           }
         </div>
-        <div class="form-field">
-          <div>
-            <label for="price">Price:</label>
-            <input
-              min="0"
-              type="number"
-              name="price"
-              id="price"
-              formControlName="price"
-            />
-          </div>
+        <div class="mb-3">
+          <label for="price" class="form-label">Price:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="price"
+            min="0"
+            formControlName="price"
+          />
           @if (productForm.get('price')?.touched && productForm.get('price')?.hasError('min')) {
-            <span class="invalid">Price must be 0 or greater.</span>
+            <div class="invalid-feedback d-block">Price must be 0 or greater.</div>
           }
         </div>
-        <div class="actions">
+        <div class="d-flex gap-2">
           <button type="submit" class="btn btn-primary">Save</button>
           @if (oldProduct && oldProduct.id > 0) {
             <button
               type="button"
-              class="btn"
+              class="btn btn-danger"
               (click)="delete.emit(oldProduct.id)"
             >
               Delete
             </button>
           }
-          <button routerLink="/products-ngxs" type="button" class="btn">
+          <button routerLink="/products-ngxs" type="button" class="btn btn-secondary">
             Cancel
           </button>
         </div>
       </form>
     </div>
+  </div>
   `,
 })
 export class ProductEditNgxsComponent {

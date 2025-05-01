@@ -80,8 +80,8 @@ export class ProductsState implements NgxsOnInit{
   }
 
   @Selector([ProductsState])
-  static getProductsLength(state: ProductsStateModel) {
-    return state.products.length;
+  static getTotalPrice(state: ProductsStateModel) {
+    return state.products.reduce((sum, product) => sum + product.price, 0);
   }
 
   // Create a selector that depends on getProducts
