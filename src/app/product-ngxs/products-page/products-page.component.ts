@@ -37,7 +37,8 @@ export class ProductsPageNgxsComponent implements OnInit {
   total = this.store.selectSignal(ProductsState.getProductsLength);
 
   ngOnInit() {
-    this.store.dispatch(new ProductsActions.LoadProducts());
+    // not required as we are using ngxsOnInit in the state
+    //this.store.dispatch(new ProductsActions.LoadProducts());
   }
 
   onToggleProductCode() {
