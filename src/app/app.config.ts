@@ -4,10 +4,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { NgxsModule } from '@ngxs/store';
 import { InMemoryDataService } from './in-memory-data.service';
-import { ProductsState } from './product-ngxs/state/products.state';
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 
 export const appConfig: ApplicationConfig = {
@@ -20,10 +17,6 @@ export const appConfig: ApplicationConfig = {
         delay: 500,
         passThruUnknownUrl: true,
       })
-    ),
-    importProvidersFrom([
-      NgxsModule.forRoot([ProductsState]),
-      NgxsReduxDevtoolsPluginModule.forRoot()
-    ])
+    )
   ]
 };

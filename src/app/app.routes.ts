@@ -1,22 +1,20 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ProductsService } from './product-ngxs/products.service';
-import { importProvidersFrom } from '@angular/core';
-import { NgxsModule } from '@ngxs/store';
-import { ProductsState } from './product-ngxs/state/products.state';
+import { ProductsStore } from './product-signal-store/store/products.store';
+import { ProductsSignalService } from './product-signal-store/products-signal.service';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
   },
-  // NGXS Routes with feature state configuration
   {
-    path: 'products-ngxs',
-    loadChildren: () => import('./product-ngxs/products-ngxs.routes').then((m) => m.routes),
+    path: 'products-signal',
+    loadChildren: () =>
+      import('./product-signal-store/products-signal.routes').then((m) => m.PRODUCTS_SIGNAL_ROUTES),
     providers: [
-      ProductsService,
-      importProvidersFrom(NgxsModule.forFeature([ProductsState]))
+      ProductsSignalService,
+      ProductsStore
     ]
-  }
+  },
 ];

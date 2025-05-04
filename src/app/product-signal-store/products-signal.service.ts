@@ -6,7 +6,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductsService {
+export class ProductsSignalService {
   private productsAPIUrl = 'api/products';
 
   constructor(private http: HttpClient) {}
@@ -42,10 +42,10 @@ export class ProductsService {
   }
 
   private handleError({ status, error }: HttpErrorResponse) {
-    // Don't treat 200 as an error
-    if (status === 200) {
-      return throwError(() => error);
+    // Only treat non-200 status codes as errors
+    if (status !== 200) {
+      return throwError(() => `${status}: Something bad happened.`);
     }
-    return throwError(() => `${status}: Something bad happened.`);
+    return throwError(() => error);
   }
 }
